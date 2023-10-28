@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { updatePassword, updateEmail } from 'firebase/auth';
-import { auth } from '../Utils/firebase-config';
-import Navigasi from '../Components/Navigasi';
+import React, { useState } from "react";
+import { updatePassword, updateEmail } from "firebase/auth";
+import { auth } from "../Utils/firebase-config";
+import Navigasi from "../Components/Navigasi";
 
 export default function Edit() {
-  const [newEmail, setNewEmail] = useState('');
-  const [newPassword, setNewPassword] = useState('');
+  const [newEmail, setNewEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   const handleEdit = async () => {
     try {
@@ -15,11 +15,12 @@ export default function Edit() {
       if (newPassword) {
         await updatePassword(auth.currentUser, newPassword);
       }
-      // Redirect to profile after successful edit
+      // Redirect to profile or another page after successful edit
     } catch (error) {
-      console.error('Edit error:', error);
+      console.error("Edit error:", error);
     }
   }
+
   return (
     <div className="bg-white min-h-screen">
       <div>

@@ -39,12 +39,15 @@ export default function Beranda() {
           )
           .map((item, index) => (
             <Link to={`/items/${item.id}`} key={index}>
-              <div className="bg-green-50 text-black p-4 rounded shadow-md">
-                <img src={item.produk} alt="" className="w-32" />
+              <div className=" justify-center items-center flex">
+
+              <div className="bg-white text-black p-4 w-40   rounded shadow-md">
+                <img src={item.produk} alt="" className="w-40" />
                 <div className="mt-2">
                   <p className="text-xl font-semibold">{item.nama}</p>
                   <p className="text-sm text-gray-600">Rp.{item.harga}</p>
                 </div>
+              </div>
               </div>
             </Link>
           ))}
