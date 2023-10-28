@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import Navigasi from "../Components/Navigasi";
 import SlideBeranda from "../beranda/SlideBeranda";
@@ -11,6 +11,7 @@ export default function Beranda() {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
+    // Fetch initial data
     const fetchData = async () => {
       try {
         const querySnapshot = await getDocs(collection(firestore, "store"));
@@ -25,6 +26,14 @@ export default function Beranda() {
     };
 
     fetchData();
+
+    // Set up a real-time listener for changes
+    const unsubscribe = onSnapshot(collection(firestore, "store"), (snapshot) => {
+      const updatedData = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      setData(updatedData);
+    });
+
+    return unsubscribe;
   }, []);
 
   return (
