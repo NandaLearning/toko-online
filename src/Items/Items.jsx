@@ -61,7 +61,7 @@ function Items() {
           <img
             src={product ? product.produk : ""}
             alt={product ? product.nama : ""}
-            className="w-96 max-w-md mx-auto"
+            className="w-80 max-w-md mx-auto"
             onClick={handleCardClick}
           />
         </div>

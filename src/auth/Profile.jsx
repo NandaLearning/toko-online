@@ -11,6 +11,8 @@ export default function Profile() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
+      // Hapus data akun dari Local Storage saat logout
+      localStorage.removeItem("userAccount");
       navigate("/login");
     } catch (error) {
       console.error("Logout error:", error);
@@ -26,6 +28,8 @@ export default function Profile() {
       if (user) {
         // User is authenticated
         setLoggedIn(true);
+        // Simpan data akun pengguna dalam Local Storage
+        localStorage.setItem("userAccount", JSON.stringify({ email: user.email, password: "*****" }));
       } else {
         // User is not authenticated
         setLoggedIn(false);
@@ -36,22 +40,9 @@ export default function Profile() {
     return () => unsubscribe();
   }, []);
 
-  // Check if the user is authenticated before displaying the profile
-  if (!loggedIn) {
-    // User is not authenticated, redirect to the login page
-    navigate("/login");
-    return null;
-  }
-
-  // Dapatkan data pengguna dari location.state atau inisialisasikan dengan nilai default
-  const location = useLocation();
-  const { state } = location;
-
-  const email = state ? state.email : "Tidak ada email";
-  const password = state ? state.password : "Tidak ada password";
-
-  // Create a masked password string with the same length as the actual password
-  const maskedPassword = password ? "*".repeat(password.length) : "Tidak ada password";
+  // Muat data akun dari Local Storage atau gunakan nilai default jika tidak ada data
+  const storedAccount = localStorage.getItem("userAccount");
+  const userAccount = storedAccount ? JSON.parse(storedAccount) : { email: "Tidak ada email", password: "Tidak ada password" };
 
   return (
     <div className="bg-white min-h-screen">
@@ -61,8 +52,8 @@ export default function Profile() {
         <div className=" justify-center items-center flex">
           <img src="profile.png" className="w-32" alt="" />
         </div>
-        <h1 className="text-center text-2xl mt-5">{email}</h1>
-        <h1 className="text-center text-2xl mt-2">{maskedPassword}</h1>
+        <h1 className="text-center text-2xl mt-5">{userAccount.email}</h1>
+        <h1 className="text-center text-2xl mt-2">{userAccount.password}</h1>
       </div>
 
       <div className="justify-center items-center flex mt-10">

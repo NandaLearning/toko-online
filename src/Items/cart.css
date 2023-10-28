@@ -1,0 +1,20 @@
+/* Cart.css */
+
+/* Tambahkan CSS untuk produk di layar kecil (handphone) */
+@media (max-width: 640px) {
+    .flex.items-center {
+      flex-direction: column; /* Ubah tata letak produk menjadi kolom */
+      align-items: center; /* Pusatkan elemen secara horizontal */
+    }
+    .ml-3 {
+      margin-left: 0; /* Hilangkan margin kiri */
+    }
+    .flex.items-center.ml-auto {
+      margin: 20px 0; /* Atur margin atas dan bawah */
+      flex-direction: column; /* Ubah tata letak tombol menjadi kolom */
+    }
+    .ml-2 {
+      margin-left: 20; /* Hilangkan margin kiri pada jumlah produk */
+    }
+  }
+  
