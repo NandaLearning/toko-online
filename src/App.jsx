@@ -6,6 +6,7 @@ import Login from "./auth/Login"
 import Register from "./auth/Register"
 import Cart from "./Items/Cart"
 import Profile from "./auth/Profile"
+import Edit from "./auth/Edit"
 export default function App(){
   return(
     <div>
@@ -18,6 +19,7 @@ export default function App(){
           <Route path="/register" element={<Register/>} />
           <Route path="/cart" element={<Cart/>} />
           <Route path="/profile" element={<Profile/>} />
+          <Route path="/edit" element={<Edit/>} />
         </Routes>
       </Router>
 

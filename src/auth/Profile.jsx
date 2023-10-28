@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../Utils/firebase-config";
 import Navigasi from "../Components/Navigasi";
@@ -57,6 +57,7 @@ export default function Profile() {
       </div>
 
       <div className="justify-center items-center flex mt-10">
+       <Link to="/edit"><button className="font-bold ml-4 text-xl border border-gray-400 bg-green-500 text-white w-20 h-10 rounded-lg hover-bg-black duration-200">Edit</button></Link>
         <button
           className="font-bold ml-4 text-xl border border-gray-400 bg-red-500 text-white w-20 h-10 rounded-lg hover-bg-black duration-200"
           onClick={handleLogout}

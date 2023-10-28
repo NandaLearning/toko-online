@@ -32,18 +32,18 @@ export default function Beranda() {
       <Navigasi onSearch={setSearchQuery} />
       <SlideBeranda />
 
-      <div className="flex flex-wrap justify-center items-center mt-10">
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-10">
         {data
           .filter((item) =>
             item.nama.toLowerCase().includes(searchQuery.toLowerCase())
           )
           .map((item, index) => (
             <Link to={`/items/${item.id}`} key={index}>
-              <div className="card bg-green-50 text-black w-40 drop-shadow-xl mr-5 mb-5">
-                <img src={item.produk} alt="" />
-                <div className="card-body">
-                  <p className="text-xl">{item.nama}</p>
-                  <p>Rp.{item.harga}</p>
+              <div className="bg-green-50 text-black p-4 rounded shadow-md">
+                <img src={item.produk} alt="" className="w-32" />
+                <div className="mt-2">
+                  <p className="text-xl font-semibold">{item.nama}</p>
+                  <p className="text-sm text-gray-600">Rp.{item.harga}</p>
                 </div>
               </div>
             </Link>
