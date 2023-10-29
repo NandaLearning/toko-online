@@ -1,33 +1,27 @@
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import React, { useEffect, useState } from 'react';
-import firestore from '../Utils/firebase-slide'; // Pastikan Anda menyesuaikan dengan lokasi berkas Firebase Anda
-import { collection, getDocs } from 'firebase/firestore';
-// Import Swiper styles
+import firestore from '../Utils/firebase-slide';
+import { collection, getDocs, onSnapshot } from 'firebase/firestore';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-
 import './slide.css';
-
-// import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 export default function SlideBeranda() {
   const [promoData, setPromoData] = useState([]);
 
   useEffect(() => {
-    // Membaca data dari Firestore
     const fetchData = async () => {
       try {
         const querySnapshot = await getDocs(collection(firestore, 'promo'));
         const promoItems = [];
         querySnapshot.forEach((doc) => {
           const data = doc.data();
-          // Pastikan nama bidang sesuai dengan dokumen Firestore Anda
           promoItems.push({
             id: doc.id,
-            slide: data.slide, // Sesuaikan dengan bidang slide Anda
+            slide: data.slide,
           });
         });
         setPromoData(promoItems);
@@ -37,6 +31,20 @@ export default function SlideBeranda() {
     };
 
     fetchData();
+
+    const unsubscribe = onSnapshot(collection(firestore, 'promo'), (snapshot) => {
+      const promoItems = [];
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        promoItems.push({
+          id: doc.id,
+          slide: data.slide,
+        });
+      });
+      setPromoData(promoItems);
+    });
+
+    return () => unsubscribe();
   }, []);
 
   return (
